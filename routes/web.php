@@ -5,10 +5,6 @@ use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'create'])->name('register');
     Route::post('/register', [RegisterController::class, 'store']);
@@ -18,7 +14,7 @@ Route::middleware('auth')->group(function () {
     // Route for email verification
     Route::get('/verify-email', function () {
         return view('auth.verify-email');
-    });
+    })->name('verification.notice');
     Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])->middleware(['throttle:6,1'])->name('verification.send');
     // button for sending verification email
 });
